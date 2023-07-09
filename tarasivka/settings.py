@@ -9,6 +9,8 @@ env.read_env()
 BASE_DIR = Path(__file__).resolve().parent.parent
 
 
+MAIN_DOMAIN = env.str('MAIN_DOMAIN')
+
 # Quick-start development settings - unsuitable for production
 # See https://docs.djangoproject.com/en/4.2/howto/deployment/checklist/
 
@@ -46,6 +48,9 @@ INSTALLED_APPS = [
 
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
+
+    "corsheaders.middleware.CorsMiddleware",
+
     'django.contrib.sessions.middleware.SessionMiddleware',
     'django.middleware.common.CommonMiddleware',
     'django.middleware.csrf.CsrfViewMiddleware',
@@ -55,6 +60,8 @@ MIDDLEWARE = [
 ]
 
 ROOT_URLCONF = 'tarasivka.urls'
+
+AUTH_USER_MODEL = 'api.User'
 
 TEMPLATES = [
     {
@@ -213,6 +220,8 @@ CKEDITOR_UPLOAD_PATH = "uploads/"
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 
+
+CORS_ALLOW_ALL_ORIGINS = True
 
 # REST_FRAMEWORK = {
 #     'DEFAULT_AUTHENTICATION_CLASSES': (
