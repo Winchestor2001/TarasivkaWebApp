@@ -39,9 +39,10 @@ class ProductSerializer(ModelSerializer):
         images = ProductGallery.objects.filter(product=obj)
         i = ProductGallerySerializer(instance=images, many=True)
         data = i.data
+        images = []
         for d in data:
-            d['image'] = MAIN_DOMAIN + d['image']
-        return data
+            images.append(MAIN_DOMAIN + d['image'])
+        return images
 
     def get_characteristic(self, obj):
         characteristic = Characteristic.objects.filter(product=obj)

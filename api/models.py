@@ -1,5 +1,6 @@
 from django.db import models
 from django.contrib.auth.models import AbstractUser
+from ckeditor_uploader.fields import RichTextUploadingField
 
 
 class User(AbstractUser):
@@ -32,6 +33,7 @@ class Product(models.Model):
     vendor_code = models.IntegerField(verbose_name='Артикул', unique=True)
     category = models.ForeignKey(Category, on_delete=models.CASCADE, verbose_name='Категорія')
     name = models.CharField(max_length=200, verbose_name='Назва')
+    description = RichTextUploadingField(verbose_name='Опис')
     price = models.FloatField(default=0, verbose_name='Ціна')
     discount = models.FloatField(default=0, verbose_name='Знижка')
     available = models.BooleanField(default=True, verbose_name='Доступний')

@@ -15,10 +15,10 @@ class ProductsAPI(generics.ListAPIView):
 
     def get_queryset(self):
         queryset = Product.objects.all()
-        cat_param = self.request.query_params.get('cat')
+        cat_param = self.request.query_params.get('product_slug')
 
         if cat_param:
-            queryset = queryset.filter(category__slug=cat_param)
+            queryset = queryset.filter(slug=cat_param)
 
         return queryset
 
