@@ -33,7 +33,7 @@ class Product(models.Model):
     vendor_code = models.IntegerField(verbose_name='Артикул', unique=True)
     category = models.ForeignKey(Category, on_delete=models.CASCADE, verbose_name='Категорія')
     name = models.CharField(max_length=200, verbose_name='Назва')
-    description = RichTextUploadingField(verbose_name='Опис')
+    description = RichTextUploadingField(verbose_name='Опис', null=True, blank=True)
     price = models.FloatField(default=0, verbose_name='Ціна')
     discount = models.FloatField(default=0, verbose_name='Знижка')
     available = models.BooleanField(default=True, verbose_name='Доступний')
@@ -62,6 +62,7 @@ class ProductGallery(models.Model):
 class Contact(models.Model):
     location = models.TextField(verbose_name='Місцезнаходження')
     phone_number = models.CharField(max_length=50, verbose_name='Номер телефону')
+    email = models.CharField(max_length=100, verbose_name='Почта', blank=True, null=True)
 
     def __str__(self):
         return "Contact"
