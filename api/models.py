@@ -92,8 +92,19 @@ class SocialLink(models.Model):
 
 
 class Characteristic(models.Model):
+    CHARS = (
+        ('Вага', 'Вага'),
+        ('Штук', 'Штук'),
+        ('Тип м’яса', 'Тип м’яса'),
+        ('Гатунок', 'Гатунок'),
+        ('Термін придатності', 'Термін придатності'),
+        ('ТУ', 'ТУ'),
+        ('Оболонка/тара', 'Оболонка/тара'),
+        ('Пакування', 'Пакування'),
+        ('Температура зберігання', 'Температура зберігання'),
+    )
     product = models.ForeignKey(Product, on_delete=models.CASCADE, verbose_name='Продукт')
-    name = models.CharField(max_length=100, verbose_name='Назва')
+    name = models.CharField(max_length=100, verbose_name='Назва', choices=CHARS)
     meaning = models.CharField(max_length=100, verbose_name='Значення')
 
     def __str__(self):

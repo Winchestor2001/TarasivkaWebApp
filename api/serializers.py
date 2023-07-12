@@ -47,7 +47,10 @@ class ProductSerializer(ModelSerializer):
     def get_characteristic(self, obj):
         characteristic = Characteristic.objects.filter(product=obj)
         i = CharacteristicSerializer(instance=characteristic, many=True)
-        return i.data
+        chars = {}
+        for k in i.data:
+            chars.update({k['name']: k['meaning']})
+        return chars
 
     def to_representation(self, instance):
         ret = super().to_representation(instance)
