@@ -226,8 +226,8 @@ DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 CORS_ALLOW_ALL_ORIGINS = True
 
 EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
-EMAIL_HOST = 'smtp.gmail.net'
+EMAIL_HOST = 'smtp.gmail.com'
 EMAIL_PORT = 465
-EMAIL_HOST_USER = env.str('SEBDER_EMAIL')
-EMAIL_HOST_PASSWORD = env.str('SEBDER_PASSWORD')
+EMAIL_HOST_USER = env.str('SENDER_EMAIL')
+EMAIL_HOST_PASSWORD = env.str('SENDER_PASSWORD')
 EMAIL_USE_SSL = True

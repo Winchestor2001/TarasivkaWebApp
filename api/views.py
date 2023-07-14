@@ -6,7 +6,7 @@ from .models import *
 from .serializers import *
 from django.db.models import Q
 
-from .utils import send_email
+from .utils import send_email, send_mail_to_telegram
 
 
 class CategoryAPI(generics.ListAPIView):
@@ -50,7 +50,8 @@ class SocialLinkAPI(generics.ListAPIView):
 
 class SupportAPI(APIView):
     def post(self, request):
-        print(request.data)
+        send_email(request.data)
+        send_mail_to_telegram(request.data)
         return Response({})
 
 
