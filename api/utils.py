@@ -19,12 +19,14 @@ def send_email(data):
     recipient_list = env.list('RECIVER_EMAIL')
     context = ""
     html_products = ""
+    total = 0
     for item in data.keys():
         if item != "selectId":
             context += f"<b>{inputs_text[item]}</b>: {data[item]}<br>"
 
     if "selectId" in data.keys():
         for item in data['selectId']:
+            total += (int(item['price']) * int(item['count']))
             html_products += f"""
             <br>
         <div style="display: flex;width:auto; height: 120px; gap: 20px;">
@@ -41,6 +43,7 @@ def send_email(data):
             <br>
             """
     context += html_products
+    context += f"<br><b>Всього:</b> {total}"
     send_mail(
         subject="Замовлення", message="Замовлення", html_message=context, from_email=from_email,
         recipient_list=recipient_list
@@ -50,16 +53,20 @@ def send_email(data):
 def send_mail_to_telegram(data):
     url = f"https://api.telegram.org/bot{env.str('TG_BOT_TOKEN')}/sendMessage"
     context = ""
+    total = 0
     for item in data.keys():
         if item != "selectId":
             context += f"<b>{inputs_text[item]}</b>: {data[item]}\n"
 
     if "selectId" in data.keys():
         for item in data['selectId']:
+            total += (int(item['price']) * int(item['count']))
             context += f"\n\n<b>{item['name']}</b>\n" \
                        f"Знижка: {item['discount']} грн\n" \
                        f"Ціна: {item['price']} грн\n" \
                        f"Кількість: {item['count']}\n"
+
+        context += f"<b>Всього</b>: {total}"
 
     data_items = {'chat_id': env.int("RECIVER_TG_GROUP"), 'text': context, 'parse_mode': 'html'}
     requests.post(url, json=data_items)

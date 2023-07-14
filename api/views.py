@@ -50,9 +50,13 @@ class SocialLinkAPI(generics.ListAPIView):
 
 class SupportAPI(APIView):
     def post(self, request):
-        send_email(request.data)
-        send_mail_to_telegram(request.data)
-        return Response({})
+        try:
+            send_email(request.data)
+            send_mail_to_telegram(request.data)
+            status = True
+        except Exception as e:
+            status = False, e
+        return Response({'status': status})
 
 
 class AboutAPI(generics.ListAPIView):
