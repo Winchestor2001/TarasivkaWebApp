@@ -22,13 +22,11 @@ class UserAdmin(admin.ModelAdmin):
 class CategoryAdmin(admin.ModelAdmin):
     prepopulated_fields = {"slug": ("name",)}
     list_display = ['name']
-    exclude = ('vendor_code',)
 
 
 @admin.register(Product)
 class ProductAdmin(admin.ModelAdmin):
     prepopulated_fields = {"slug": ("name",)}
-    # exclude = ('vendor_code',)
     list_display = ['name', 'price', 'available', 'type']
 
     inlines = [CharacteristicInline, GalleryInline]
@@ -43,3 +41,12 @@ class ContactAdmin(admin.ModelAdmin):
 class SocialLinkAdmin(admin.ModelAdmin):
     list_display = ['social', 'link']
 
+
+@admin.register(About)
+class AboutAdmin(admin.ModelAdmin):
+    pass
+
+
+@admin.register(Slider)
+class SliderAdmin(admin.ModelAdmin):
+    pass

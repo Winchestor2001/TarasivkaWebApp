@@ -2,6 +2,10 @@ from rest_framework.serializers import ModelSerializer
 
 from tarasivka.settings import MAIN_DOMAIN
 from .models import *
+from environs import Env
+
+env = Env()
+env.read_env()
 
 
 class UserSerializer(ModelSerializer):
@@ -69,4 +73,28 @@ class SocialLinkSerializer(ModelSerializer):
     class Meta:
         model = SocialLink
         fields = ('social', 'link')
+
+
+class AboutSerializer(ModelSerializer):
+    class Meta:
+        model = About
+        fields = "__all__"
+
+    def edit_ckeditor(self, obj):
+        about = About.objects.all().first()
+        context = about.context
+
+        new_context = context.replace("src=\"", f"src=\"{env.str('MAIN_DOMAIN')}")
+        return new_context
+
+    def to_representation(self, instance):
+        ret = super().to_representation(instance)
+        ret['context'] = self.edit_ckeditor(instance)
+        return ret
+
+
+class SliderSerializer(ModelSerializer):
+    class Meta:
+        model = Slider
+        fields = ("image",)
 

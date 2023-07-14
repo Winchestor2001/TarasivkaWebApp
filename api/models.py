@@ -30,7 +30,6 @@ class Product(models.Model):
         ('новинка', 'новинка'),
     )
     slug = models.SlugField()
-    vendor_code = models.IntegerField(verbose_name='Артикул', unique=True)
     category = models.ForeignKey(Category, on_delete=models.CASCADE, verbose_name='Категорія')
     name = models.CharField(max_length=200, verbose_name='Назва')
     description = RichTextUploadingField(verbose_name='Опис', null=True, blank=True)
@@ -70,6 +69,17 @@ class Contact(models.Model):
     class Meta:
         verbose_name = 'Кконтакт'
         verbose_name_plural = 'Контакти'
+
+
+class About(models.Model):
+    context = RichTextUploadingField(verbose_name='Приблизно')
+
+    def __str__(self):
+        return "Приблизно"
+
+    class Meta:
+        verbose_name = 'Приблизно'
+        verbose_name_plural = 'Приблизни'
 
 
 class SocialLink(models.Model):
@@ -113,3 +123,15 @@ class Characteristic(models.Model):
     class Meta:
         verbose_name = 'Характеристика'
         verbose_name_plural = 'Характеристики'
+
+
+class Slider(models.Model):
+    image = models.ImageField(upload_to='slider/')
+
+    def __str__(self):
+        return "Slider"
+
+    class Meta:
+        verbose_name = 'Зображення слайдера'
+        verbose_name_plural = 'Зображення слайдера'
+
