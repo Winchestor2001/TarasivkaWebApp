@@ -20,7 +20,7 @@ class ProductsAPI(generics.ListAPIView):
     def get_queryset(self):
         queryset = Product.objects.all()
         cat_param = self.request.query_params.get('product_slug')
-        q = self.request.query_params.get('q')
+        q = self.request.query_params.get('search')
         discount = self.request.query_params.get('discount')
         category_slug = self.request.query_params.get("category_slug")
 
